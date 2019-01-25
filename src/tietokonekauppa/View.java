@@ -216,12 +216,7 @@ public class View extends Application {
         tab3.setContent(grid3);
 		
 	}
-        
-        private void testimies3000 () {
-        int testi;
-   
-}
-        
+                
 	public static void main(String[] args) {
 		launch(args);
 	}

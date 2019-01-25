@@ -30,133 +30,130 @@ import javafx.stage.Stage;
 
 public class View extends Application {
 
-	// yleiset
-	Scene scene;
-	TabPane tabPane;
+    // yleiset
+    Scene scene;
+    TabPane tabPane;
 
-	// ekasivu
-	private Tab tab1;
-	private GridPane grid1;
-	//tokasivu
-	private GridPane grid2;
-	private Tab tab2;
+    // ekasivu
+    private Tab tab1;
+    private GridPane grid1;
+    //tokasivu
+    private GridPane grid2;
+    private Tab tab2;
 
-	// kolmassivu
-	private GridPane grid3;
-	private Tab tab3;
-	private TableView table;
+    // kolmassivu
+    private GridPane grid3;
+    private Tab tab3;
+    private TableView table;
 
 
-	//nappuloita
-	private Button btnAddproduct;
-	private Button btnSend;
-
+    //nappuloita
+    private Button btnAddproduct;
+    private Button btnSend;
 	
-	public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) {
 		
-		// Käyttöliittymän rakentaminen
-		try {
-			tabPane = new TabPane();
-			tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        // Käyttöliittymän rakentaminen
+        try {
+            tabPane = new TabPane();
+            tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-	        BorderPane borderPane = new BorderPane();
+            BorderPane borderPane = new BorderPane();
+
+            // tabit
+            createTab1();
+            createTab2();
+            createTab3();
 	        
-	        // tabit
-	        createTab1();
-	        createTab2();
-	        createTab3();
-	        
-	        //Tabit tabpanee , tää ehkä pois 
+            //Tabit tabpanee , tää ehkä pois 
             tabPane.getTabs().add(tab1);
             tabPane.getTabs().add(tab2);
             tabPane.getTabs().add(tab3);
+    
+            scene = new Scene(tabPane,1900, 1000);
+	        
+            borderPane.prefHeightProperty().bind(scene.heightProperty());
+            borderPane.prefWidthProperty().bind(scene.widthProperty());
 
-	        
-			scene = new Scene(tabPane,1900, 1000);
-	        
-	        borderPane.prefHeightProperty().bind(scene.heightProperty());
-	        borderPane.prefWidthProperty().bind(scene.widthProperty());
-	        
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
-	        
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	};
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    };
 	
-	// Myyntinäyttö
-	private void createTab1() {
-		tab1 = new Tab();
-		tab1.setText("Päävalikko");
+    // Myyntinäyttö
+    private void createTab1() {
+        tab1 = new Tab();
+        tab1.setText("Päävalikko");
 
-		grid1 = new GridPane();
-		grid1.setHgap(30); // Horizontal gap
-		grid1.setVgap(30); // Vertical gap
-		
-		// SIVUSTON KOMPONENTIT
-		Text lblSales = new Text("MYYNTISIVU");	
-		lblSales.setFont(Font.font(null, FontWeight.BOLD, 60));
-		lblSales.setFill(Color.rgb(255, 255, 255));
-		
-		Text lblOrder = new Text("TILAUS");	
-		lblOrder.setFont(Font.font(null, FontWeight.BOLD, 30));
-		lblOrder.setFill(Color.rgb(255, 255, 255));
+        grid1 = new GridPane();
+        grid1.setHgap(30); // Horizontal gap
+        grid1.setVgap(30); // Vertical gap
 
-		Text lblProduct = new Text("TUOTE:");	
-		lblOrder.setFont(Font.font(null, 15));
-		lblOrder.setFill(Color.rgb(255, 255, 255));
-		
-		Text lblOrderAmount = new Text("MÄÄRÄ:");	
-		lblOrder.setFont(Font.font(null, 15));
-		lblOrder.setFill(Color.rgb(255, 255, 255));
+        // SIVUSTON KOMPONENTIT
+        Text lblSales = new Text("MYYNTISIVU");	
+        lblSales.setFont(Font.font(null, FontWeight.BOLD, 60));
+        lblSales.setFill(Color.rgb(255, 255, 255));
 
-		// ComboboXXX
-		ComboBox productsdrop = new ComboBox();
-		productsdrop.getItems().addAll(
-	            "SUPER PC3000-MASTERRACE 353225 HYPERSPEED",
-	            "Tietsikka2",
-	            "Tietsikka3",
-	            "Tietsikka4",
-	            "Tietsikka5"
-	        );
-			ComboBox orderAmount = new ComboBox();
-			orderAmount.getItems().addAll(
-	            "1",
-	            "2",
-	            "3",
-	            "4",
-	            "5"
-	        );
+        Text lblOrder = new Text("TILAUS");	
+        lblOrder.setFont(Font.font(null, FontWeight.BOLD, 30));
+        lblOrder.setFill(Color.rgb(255, 255, 255));
 
-	    	
-		btnAddproduct = new Button();
-		btnAddproduct.setText("Lisää");
-		btnAddproduct.setPrefSize(200, 100);
+        Text lblProduct = new Text("TUOTE:");	
+        lblOrder.setFont(Font.font(null, 15));
+        lblOrder.setFill(Color.rgb(255, 255, 255));
 
-		
-		// LISÄYKSET GRIDII
-		grid1.add(lblSales,2,2,4,1);
-		grid1.add(lblOrder,2,4);
-		grid1.add(lblProduct,2,6);
+        Text lblOrderAmount = new Text("MÄÄRÄ:");	
+        lblOrder.setFont(Font.font(null, 15));
+        lblOrder.setFill(Color.rgb(255, 255, 255));
+
+        // ComboboXXX
+        ComboBox productsdrop = new ComboBox();
+        productsdrop.getItems().addAll(
+            "SUPER PC3000-MASTERRACE 353225 HYPERSPEED",
+            "Tietsikka2",
+            "Tietsikka3",
+            "Tietsikka4",
+            "Tietsikka5"
+        );
+                ComboBox orderAmount = new ComboBox();
+                orderAmount.getItems().addAll(
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+        );
+
+
+        btnAddproduct = new Button();
+        btnAddproduct.setText("Lisää");
+        btnAddproduct.setPrefSize(200, 100);
+
+
+        // LISÄYKSET GRIDII
+        grid1.add(lblSales,2,2,4,1);
+        grid1.add(lblOrder,2,4);
+        grid1.add(lblProduct,2,6);
         grid1.add(productsdrop, 2,8,4,1);
-		grid1.add(lblOrderAmount, 2,10);
+        grid1.add(lblOrderAmount, 2,10);
         grid1.add(orderAmount, 3,10);
 
-		grid1.add(btnAddproduct,15,11);
+        grid1.add(btnAddproduct,15,11);
 		
         tab1.setContent(grid1);
         grid1.setStyle("-fx-background-image: url('https://cdn.images.express.co.uk/img/dynamic/36/590x/Anrold-s-568683.jpg')");
 
-		table = new TableView();
-		InnerShadow is = new InnerShadow();
-		is.setOffsetX(4.0f);
-		is.setOffsetY(4.0f);
+        table = new TableView();
+        InnerShadow is = new InnerShadow();
+        is.setOffsetX(4.0f);
+        is.setOffsetY(4.0f);
 
-
-		Text otsikko = new Text("TILAUKSESI:");		 
-		otsikko.setFont(Font.font(null, FontWeight.BOLD, 30));
-		otsikko.setFill(Color.rgb(255, 255, 255));
+        Text otsikko = new Text("TILAUKSESI:");		 
+        otsikko.setFont(Font.font(null, FontWeight.BOLD, 30));
+        otsikko.setFill(Color.rgb(255, 255, 255));
         
         table.setEditable(true);
         
@@ -180,51 +177,47 @@ public class View extends Application {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(otsikko, table);
 				
-		// gridin paikka
-		grid1.add(vbox, 2, 12,10,1);
+        // gridin paikka
+        grid1.add(vbox, 2, 12,10,1);
 
 
-	}
-	// Myyntinäyttö
-	private void createTab2() {
+    }
+    // Myyntinäyttö
+    private void createTab2() {
         tab2 = new Tab();
         tab2.setText("esimerkki");
+	
+        grid2 = new GridPane();
+        grid2.setHgap(30); // Horizontal gap
+        grid2.setVgap(30); // Vertical gap
+        Text lblexample = new Text("esimerkki");		 
 
-		
-		grid2 = new GridPane();
-		grid2.setHgap(30); // Horizontal gap
-		grid2.setVgap(30); // Vertical gap
-		Text lblexample = new Text("esimerkki");		 
-
-		grid2.add(lblexample,15,11);
+        grid2.add(lblexample,15,11);
 		
         tab2.setContent(grid2);
 
-	}
-	// Myyntinäyttö
-	private void createTab3() {
+    }
+    // Myyntinäyttö
+    private void createTab3() {
         tab3 = new Tab();
         tab3.setText("Varasto");
 
-		grid3 = new GridPane();
-		grid3.setHgap(30); // Horizontal gap
-		grid3.setVgap(30); // Vertical gap
-		
-		Text lblWarehouse = new Text("Varastohommia");		 
+        grid3 = new GridPane();
+        grid3.setHgap(30); // Horizontal gap
+        grid3.setVgap(30); // Vertical gap
 
-		grid3.add(lblWarehouse,15,11);
+        Text lblWarehouse = new Text("Varastohommia");		 
+
+        grid3.add(lblWarehouse,15,11);
         tab3.setContent(grid3);
 		
-	}
+    }
         
-        private void testimies3000 () {
+    private void testimies3000 () {
    
-}
+    }
         
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
-
-
-

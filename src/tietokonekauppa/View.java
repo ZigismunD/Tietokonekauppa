@@ -218,6 +218,7 @@ public class View extends Application {
 	}
         
         private void testimies3000 () {
+        int testi;
    
 }
         

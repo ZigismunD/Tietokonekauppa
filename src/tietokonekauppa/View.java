@@ -215,10 +215,12 @@ public class View extends Application {
 		grid3.add(lblWarehouse,15,11);
         tab3.setContent(grid3);
 		
-
-
-
 	}
+        
+        private void testimies3000 () {
+   
+}
+        
 	public static void main(String[] args) {
 		launch(args);
 	}

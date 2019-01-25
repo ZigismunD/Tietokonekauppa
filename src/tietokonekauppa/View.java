@@ -218,7 +218,7 @@ public class View extends Application {
 	}
                 
         private void pekka(){
-            
+            int pekka;
         }
 	public static void main(String[] args) {
 		launch(args);

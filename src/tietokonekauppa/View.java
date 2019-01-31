@@ -17,6 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.BorderPane;
@@ -97,19 +98,30 @@ public class View extends Application {
         // SIVUSTON KOMPONENTIT
         Text lblSales = new Text("MYYNTISIVU");	
         lblSales.setFont(Font.font(null, FontWeight.BOLD, 60));
-        lblSales.setFill(Color.rgb(255, 255, 255));
+        lblSales.setFill(Color.BLACK);
 
         Text lblOrder = new Text("TILAUS");	
-        lblOrder.setFont(Font.font(null, FontWeight.BOLD, 30));
-        lblOrder.setFill(Color.rgb(255, 255, 255));
+        lblOrder.setFont(Font.font(null, FontWeight.BOLD, 25));
+        lblOrder.setFill(Color.BLACK);
 
         Text lblProduct = new Text("TUOTE:");	
-        lblOrder.setFont(Font.font(null, 15));
-        lblOrder.setFill(Color.rgb(255, 255, 255));
+        lblProduct.setFont(Font.font(null, 15));
+        lblProduct.setFill(Color.BLACK);
 
         Text lblOrderAmount = new Text("MÄÄRÄ:");	
-        lblOrder.setFont(Font.font(null, 15));
-        lblOrder.setFill(Color.rgb(255, 255, 255));
+        lblOrderAmount.setFont(Font.font(null, 15));
+        lblOrderAmount.setFill(Color.BLACK);
+        
+        Text lblUnitPrice = new Text("HINTA:");	
+        lblUnitPrice.setFont(Font.font(null, 15));
+        lblUnitPrice.setFill(Color.BLACK);
+        TextField UnitPriceTxt = new TextField();
+        
+        Text lblPrice = new Text("HINTA YHTEENSÄ:");	
+        lblUnitPrice.setFont(Font.font(null, 15));
+        lblUnitPrice.setFill(Color.BLACK);
+
+        TextField PriceTxt = new TextField();
 
         // ComboboXXX
         ComboBox productsdrop = new ComboBox();
@@ -129,25 +141,27 @@ public class View extends Application {
             "5"
         );
 
-
+        Text lblAddproduct = new Text("LISÄÄ TUOTE:");	
+        lblAddproduct.setFont(Font.font(null, 15));
+        lblAddproduct.setFill(Color.BLACK);
+                
         btnAddproduct = new Button();
         btnAddproduct.setText("Lisää");
-        btnAddproduct.setPrefSize(200, 100);
-
-
-        // LISÄYKSET GRIDII
-        grid1.add(lblSales,2,2,4,1);
-        grid1.add(lblOrder,2,4);
-        grid1.add(lblProduct,2,6);
-        grid1.add(productsdrop, 2,8,4,1);
-        grid1.add(lblOrderAmount, 2,10);
-        grid1.add(orderAmount, 3,10);
-
-        grid1.add(btnAddproduct,15,11);
-		
-        tab1.setContent(grid1);
-        grid1.setStyle("-fx-background-image: url('https://cdn.images.express.co.uk/img/dynamic/36/590x/Anrold-s-568683.jpg')");
-
+        btnAddproduct.setPrefSize(100, 50);
+        //btnAddproduct.setStyle("-fx-background-image: url('')");
+        
+        Text lblCompany = new Text("Yritys:");	
+        TextField companyTxt = new TextField();
+        Text lblCustomer = new Text("Yhteyshenkilö:");
+        TextField customerTxt = new TextField();
+        Text lblAddress = new Text("Postiosoite:");
+        TextField addressTxt = new TextField();
+        Text lblBilling = new Text("Laskutusosoite:");
+        TextField billingTxt = new TextField();
+        Text lblOther = new Text("Erityishuomiot:");
+        TextField otherTxt = new TextField();
+        
+           // Tilaus taulukko
         table = new TableView();
         InnerShadow is = new InnerShadow();
         is.setOffsetX(4.0f);
@@ -174,13 +188,40 @@ public class View extends Application {
         table.getColumns().addAll(productCol, amountCol, priceCol);
         table.setPrefHeight(250);
         
+        //Taulikon Vbox
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(otsikko, table);
 				
-        // gridin paikka
-        grid1.add(vbox, 2, 12,10,1);
+
+        // LISÄYKSET GRIDII
+        grid1.add(lblSales,2,1,4,2);
+        grid1.add(lblOrder,2,3);
+        grid1.add(lblProduct,2,4);
+        grid1.add(productsdrop, 2,5,4,1);
+        grid1.add(lblOrderAmount, 2,6);
+        grid1.add(orderAmount, 3,6);
+        grid1.add(lblUnitPrice, 2, 7);
+        grid1.add(UnitPriceTxt, 3, 7);
+        grid1.add(lblAddproduct, 2,8);
+        grid1.add(btnAddproduct,3,8);
+
+        grid1.add(lblCompany, 10,2);
+	grid1.add(companyTxt, 10,3);
+        grid1.add(lblAddress, 10,4);
+        grid1.add(addressTxt, 10,5);
+        grid1.add(lblBilling, 10,6);
+        grid1.add(billingTxt, 10,7);
+        grid1.add(lblOther, 10,8);
+        grid1.add(otherTxt, 10,9);
+       
+        tab1.setContent(grid1);
+        grid1.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
+       
+        grid1.add(vbox, 2,10,10,1);
+        grid1.add(lblPrice,2,11);
+        grid1.add(PriceTxt,3,11);
 
 
     }
@@ -192,6 +233,8 @@ public class View extends Application {
         grid2 = new GridPane();
         grid2.setHgap(0); // Horizontal gap
         grid2.setVgap(0); // Vertical gap
+        grid2.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
+
         //Text lblexample = new Text("esimerkki");
         
         // Nappula, josta saa prosessorit näkyviin
@@ -236,6 +279,13 @@ public class View extends Application {
         btnHdd.setText("HHD");
         btnHdd.setPrefSize(200, 100);
         grid2.add(btnHdd, 0, 6);
+        
+         // Nappula, josta saa HDD:t näkyviin
+        Button btnCase = new Button();
+        btnCase.setText("Kotelo");
+        btnCase.setPrefSize(200, 100);
+        grid2.add(btnCase, 0, 7);
+
 
         //grid2.add(lblexample,15,11);
         

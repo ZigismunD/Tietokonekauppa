@@ -29,26 +29,40 @@ public class Mariadb_test {
             System.out.println("Connecting to a selected database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
-
-            //STEP 4: Execute a query
-            System.out.println("Creating table in given database...");
-            stmt = conn.createStatement();
             
-            String sql = "CREATE TABLE REGISTRATION "
-                    + "(id INTEGER not NULL, "
-                    + " first VARCHAR(255), "
-                    + " last VARCHAR(255), "
-                    + " age INTEGER, "
-                    + " PRIMARY KEY ( id ))";
-
-            stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+            //STEP 4: Test insert
+            System.out.println("Inserting a row to OSA...");
+            // create the mysql insert preparedstatement
             
-            //STEP 5: Execute another query
-            sql = "DROP TABLE REGISTRATION";
+            //Nimi
+            String name = "b";
+            //Hinta
+            double price = 8;
+            //Määrä
+            int quantity = 8;
+            //Luo SQL parametreista
+            String sSQL = "INSERT INTO OSA (nimi, hinta, maara) VALUES ";
+            sSQL = sSQL + "('" + name + "', " + price + ", " + quantity + ")";
+            Statement st = conn.createStatement();
+            //Execute query
+            st.executeUpdate(sSQL);
+            System.out.println("Inserted a row succesfully...");
             
-            stmt.executeUpdate(sql);
-            System.out.println("Dropped table in given database...");
+            //STEP 5: Select * from OSA
+            sSQL = "SELECT * FROM OSA";
+            // create the java statement
+            st = conn.createStatement();
+            // execute the query, and get a java resultset
+            ResultSet rs = st.executeQuery(sSQL);
+            // iterate through the java resultset
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                name = rs.getString("nimi");
+                price = rs.getDouble("hinta");
+                quantity = rs.getInt("maara");
+                // print the results
+                System.out.format("%s, %s, %s, %s\n", id, name, price, quantity);
+            }
             
         } catch (SQLException se) {
             //Handle errors for JDBC

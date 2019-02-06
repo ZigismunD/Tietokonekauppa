@@ -19,6 +19,10 @@ public class Model {
         this.cont = cont;
     }
     
-    
-    
+    public void luoTietokone() {
+        
+    }
+   
 }
+
+

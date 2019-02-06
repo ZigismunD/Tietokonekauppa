@@ -16,5 +16,16 @@ public class Controller {
         this.gui = gui;
     }
     
+    public String getAllComputerNames() {
+        return null;
+    }
+    
+    public void createComputer() {
+        
+    }
+    
+    public void createOrder() {
+        
+    }
     
 }

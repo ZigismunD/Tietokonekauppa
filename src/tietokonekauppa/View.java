@@ -31,10 +31,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View extends Application {
+    
+    
 
     // yleiset
     Scene scene;
     TabPane tabPane;
+    
 
     // ekasivu
     private Tab tab1;
@@ -74,6 +77,7 @@ public class View extends Application {
             tabPane.getTabs().add(tab3);
     
             scene = new Scene(tabPane,1900, 1000);
+            scene.getStylesheets().add(this.getClass().getResource("/cssStyles/stylesheet.css").toExternalForm());
 	        
             borderPane.prefHeightProperty().bind(scene.heightProperty());
             borderPane.prefWidthProperty().bind(scene.widthProperty());
@@ -217,7 +221,7 @@ public class View extends Application {
         grid1.add(otherTxt, 10,9);
        
         tab1.setContent(grid1);
-        grid1.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
+        //grid1.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
        
         grid1.add(vbox, 2,10,10,1);
         grid1.add(lblPrice,2,11);
@@ -225,15 +229,16 @@ public class View extends Application {
 
 
     }
-    // Myyntinäyttö
+    // Varastonäyttö
     private void createTab2() {
         tab2 = new Tab();
-        tab2.setText("esimerkki");
+        tab2.setText("Varasto");
 	
         grid2 = new GridPane();
+        grid2.setId("Varasto");
         grid2.setHgap(0); // Horizontal gap
         grid2.setVgap(0); // Vertical gap
-        grid2.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
+        //grid2.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
 
         //Text lblexample = new Text("esimerkki");
         
@@ -357,15 +362,86 @@ public class View extends Application {
     // Myyntinäyttö
     private void createTab3() {
         tab3 = new Tab();
-        tab3.setText("Varasto");
+        tab3.setText("Tilaukset");
 
         grid3 = new GridPane();
-        grid3.setHgap(30); // Horizontal gap
-        grid3.setVgap(30); // Vertical gap
+        grid3.setHgap(0); // Horizontal gap
+        grid3.setVgap(0); // Vertical gap
+        //grid3.setStyle("-fx-background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')");
 
-        Text lblWarehouse = new Text("Varastohommia");		 
+        Button btnOrders = new Button();
+        btnOrders.setText("Tilaukset");
+        btnOrders.setPrefSize(200, 100);
+        grid3.add(btnOrders, 0, 0);
+        
+        Button btnPurchases = new Button();
+        btnPurchases.setText("Ostot");
+        btnPurchases.setPrefSize(200, 100);
+        grid3.add(btnPurchases, 0, 1);
+        
+        Button btnAllEvents = new Button();
+        btnAllEvents.setText("Kaikki Tapahtumat");
+        btnAllEvents.setPrefSize(200, 100);
+        grid3.add(btnAllEvents, 0, 2);
+        
+        TableView tableOrders = new TableView();
+        InnerShadow is = new InnerShadow();
+        is.setOffsetX(4.0f);
+        is.setOffsetY(4.0f);
 
-        grid3.add(lblWarehouse,15,11);
+        
+        tableOrders.setEditable(true);
+        
+        TableColumn brand = new TableColumn("Merkki");
+        brand.setStyle("-fx-font-size: 14pt;");
+        brand.setMinWidth(200);
+        
+        TableColumn client = new TableColumn("Asiakas");
+        client.setStyle("-fx-font-size: 14pt;");
+        client.setMinWidth(500);
+        
+        TableColumn orderDate = new TableColumn("Tilauspvm");
+        orderDate.setStyle("-fx-font-size: 14pt;");
+        orderDate.setMinWidth(200);
+        
+        TableColumn amount = new TableColumn("Summa (€)");
+        amount.setStyle("-fx-font-size: 14pt;");
+        amount.setMinWidth(200);
+        
+        TableColumn additionalInfo = new TableColumn("HUOM");
+        additionalInfo.setStyle("-fx-font-size: 14pt;");
+        additionalInfo.setMinWidth(500);
+        
+        tableOrders.getColumns().addAll(brand, client, orderDate, amount, additionalInfo);
+        tableOrders.setPrefHeight(700);
+        tableOrders.setPrefWidth(1600);
+        
+        
+        final VBox vboxOrders = new VBox();
+        vboxOrders.setSpacing(5);
+        vboxOrders.setPadding(new Insets(0, 0, 0, 20));
+        vboxOrders.getChildren().addAll(tableOrders);
+        
+        grid3.add(vboxOrders, 1, 0,7,7);
+        
+        Button btnAlterOrder = new Button();
+        btnAlterOrder.setId("alterOrder");
+        btnAlterOrder.setText("Lisää Tuote");
+        btnAlterOrder.setPrefSize(200, 100);
+
+        Button btnRemoveOrder = new Button();
+        btnRemoveOrder.setText("Lisää Tuote");
+        btnRemoveOrder.setPrefSize(200, 100);
+        //grid2.add(btnAddProduct, 2, 7);
+
+        HBox buttonsBox = new HBox();
+        buttonsBox.setSpacing(30);
+        buttonsBox.setPadding(new Insets(20, 20, 20, 20));
+        
+        buttonsBox.getChildren().addAll(btnAlterOrder, btnRemoveOrder);
+        grid3.add(buttonsBox, 7, 8, 7, 10);
+
+        //grid3.add(lblWarehouse,15,11);
         tab3.setContent(grid3);
 		
 	}

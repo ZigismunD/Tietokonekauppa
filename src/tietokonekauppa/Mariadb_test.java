@@ -35,11 +35,11 @@ public class Mariadb_test {
             // create the mysql insert preparedstatement
             
             //Nimi
-            String name = "b";
+            String name = "c";
             //Hinta
-            double price = 8;
+            double price = 10;
             //Määrä
-            int quantity = 8;
+            int quantity = 3;
             //Luo SQL parametreista
             String sSQL = "INSERT INTO OSA (nimi, hinta, maara) VALUES ";
             sSQL = sSQL + "('" + name + "', " + price + ", " + quantity + ")";
